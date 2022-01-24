@@ -1,3 +1,9 @@
+export const DEVICE_TYPE = {
+    ALL: 'all',
+    MAC: 'MAC',
+    WIN_WORKSTATION: 'WINDOWS_WORKSTATION',
+    WIN_SERVER: 'WINDOWS_SERVER'
+}
 export const DASH_CNTS = {
     COLUMNS: [
         { field: 'system_name', header: 'System name' },
@@ -8,19 +14,19 @@ export const DASH_CNTS = {
     DEVICE_TYPES: [
         {
             label: 'All',
-            value: 'all'
+            value: DEVICE_TYPE.ALL
         },
         {
             label: 'Windows Workstation',
-            value: 'WINDOWS_WORKSTATION'
+            value: DEVICE_TYPE.WIN_WORKSTATION
         },
         {
             label: 'MAC',
-            value: 'MAC'
+            value: DEVICE_TYPE.MAC
         },
         {
             label: 'Windows Server',
-            value: 'WINDOWS_SERVER'
+            value: DEVICE_TYPE.WIN_SERVER
         },
     ],
     FILTERS: {

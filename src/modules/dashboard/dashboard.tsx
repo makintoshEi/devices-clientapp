@@ -3,6 +3,7 @@ import { Device } from '../../models/device.model'
 import { DashboardLoc } from './dashboard.loc'
 import { getDevices } from '../../api/devices.api'
 import { requestErrorHandler } from '../../util/commons.util'
+import { DEVICE_TYPE } from './dashboard.constant'
 
 export const Dashboard = () => {
     const newDevices: Device[] = []
@@ -35,7 +36,7 @@ export const Dashboard = () => {
      */
     const filterDevicesByType = (type: string) => {
         setDeviceType(type)
-        if (type === 'all') {
+        if (type === DEVICE_TYPE.ALL) {
             setFilteredDevices(devices)
             return
         }
