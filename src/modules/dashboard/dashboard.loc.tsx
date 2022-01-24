@@ -3,15 +3,15 @@ import { Dropdown } from 'primereact/dropdown'
 import { Column } from 'primereact/column'
 import { DASH_CNTS } from './dashboard.constant'
 
-interface DashboardProps {
+export interface DashboardProps {
     devices: any[]
     deviceType: string
-    filterDevices: any
+    filterDevicesByType: any
 }
 
 export const DashboardLoc = (props: DashboardProps) => {
 
-    const { devices, deviceType, filterDevices } = props
+    const { devices, deviceType, filterDevicesByType } = props
 
     const getColumns = DASH_CNTS.COLUMNS.map(column => {
         return <Column key={column.field} field={column.field} header={column.header} />
@@ -22,7 +22,7 @@ export const DashboardLoc = (props: DashboardProps) => {
             <div className='mb-3'>
                 <label className='mr-1' htmlFor="filterBy">{DASH_CNTS.FILTERS.DEVICE.LBL}</label>
                 <Dropdown name="filterBy" options={DASH_CNTS.DEVICE_TYPES}
-                    onChange={(e) => filterDevices(e.value)}
+                    onChange={(e) => filterDevicesByType(e.value)}
                     placeholder={DASH_CNTS.FILTERS.DEVICE.PLH}
                     value={deviceType} />
             </div>

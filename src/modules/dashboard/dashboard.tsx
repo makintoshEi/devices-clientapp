@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Device } from '../../models/device.model'
-import { DashboardLoc } from './dashboard.loc'
+import { DashboardLoc, DashboardProps } from './dashboard.loc'
 import { getDevices } from '../../api/devices.api'
 import { requestErrorHandler } from '../../util/commons.util'
 import { DEVICE_TYPE } from './dashboard.constant'
@@ -8,12 +8,32 @@ import { DEVICE_TYPE } from './dashboard.constant'
 export const Dashboard = () => {
     const newDevices: Device[] = []
     const [devices, setDevices] = useState(newDevices)
-    const [filteredDevices, setFilteredDevices] = useState(newDevices)
     const [deviceType, setDeviceType] = useState('')
+    const [isFilteredByDevice, setIsFilteredByDevice] = useState(false)
 
     useEffect(() => {
-        fetchDevices()
+        requestDevices()
     }, [])
+
+    /**
+     * When is filtered by device
+     */
+    useEffect(() => {
+        if (isFilteredByDevice && devices.length > 0) {
+            if (deviceType === DEVICE_TYPE.ALL) {
+                return
+            }
+            setDevices(devices.filter(device => device.type === deviceType))
+            setIsFilteredByDevice(false)
+        }
+    }, [devices])
+
+    /**
+     * Fetch devices from endpoint
+     */
+    const requestDevices = async () => {
+        setDevices(await fetchDevices())
+    }
 
     /**
      * Returns devices list
@@ -22,9 +42,7 @@ export const Dashboard = () => {
         try {
             const response = await getDevices()
             requestErrorHandler(response)
-            const devices = await response.json()
-            setDevices(devices)
-            setFilteredDevices(devices)
+            return await response.json()
         } catch (err: any) {
             throw new Error(err)
         }
@@ -34,16 +52,19 @@ export const Dashboard = () => {
      * Filters devices by type
      * @param type 
      */
-    const filterDevicesByType = (type: string) => {
+    const filterDevicesByType = async (type: string) => {
         setDeviceType(type)
-        if (type === DEVICE_TYPE.ALL) {
-            setFilteredDevices(devices)
-            return
-        }
-        setFilteredDevices(devices.filter(device => device.type === type))
+        setIsFilteredByDevice(true)
+        await requestDevices()
+    }
+
+    const props: DashboardProps = {
+        devices,
+        deviceType,
+        filterDevicesByType
     }
 
     return (
-        <DashboardLoc devices={filteredDevices} deviceType={deviceType} filterDevices={filterDevicesByType}></DashboardLoc>
+        <DashboardLoc {...props}></DashboardLoc>
     )
 }

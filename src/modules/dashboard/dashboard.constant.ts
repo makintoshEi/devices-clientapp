@@ -31,7 +31,7 @@ export const DASH_CNTS = {
     ],
     FILTERS: {
         DEVICE: {
-            PLH: 'Select a device',
+            PLH: 'Select a device type',
             LBL: 'Device type'
         }
     }
