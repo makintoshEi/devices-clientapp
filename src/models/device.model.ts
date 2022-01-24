@@ -1,5 +1,5 @@
 export interface Device {
-    hddCapacity: string
-    systemName: string
+    hdd_capacity: string
+    system_name: string
     type: string
 }

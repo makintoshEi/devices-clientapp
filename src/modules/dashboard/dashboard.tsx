@@ -3,13 +3,15 @@ import { Device } from '../../models/device.model'
 import { DashboardLoc, DashboardProps } from './dashboard.loc'
 import { getDevices } from '../../api/devices.api'
 import { requestErrorHandler } from '../../util/commons.util'
-import { DEVICE_TYPE } from './dashboard.constant'
+import { DEVICE_TYPE, SORT_TYPE } from './dashboard.constant'
+import { sortByName } from '../../util/commons.util'
 
 export const Dashboard = () => {
     const newDevices: Device[] = []
     const [devices, setDevices] = useState(newDevices)
     const [deviceType, setDeviceType] = useState('')
     const [isFilteredByDevice, setIsFilteredByDevice] = useState(false)
+    const [sortBy, setSortBy] = useState('')
 
     useEffect(() => {
         requestDevices()
@@ -58,10 +60,23 @@ export const Dashboard = () => {
         await requestDevices()
     }
 
+    /**
+     * 
+     * @param property 
+     */
+    const sortDevices = (property: string) => {
+        setSortBy(property)
+        setDevices(property === SORT_TYPE.HDD_CAPACITY ?
+            devices.sort((a, b) => +a.hdd_capacity - +b.hdd_capacity) :
+            devices.sort((a, b) => sortByName(a, b, property)))
+    }
+
     const props: DashboardProps = {
         devices,
         deviceType,
-        filterDevicesByType
+        filterDevicesByType,
+        sortBy,
+        sortDevices
     }
 
     return (

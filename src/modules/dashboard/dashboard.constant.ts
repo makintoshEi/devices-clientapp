@@ -4,6 +4,12 @@ export const DEVICE_TYPE = {
     WIN_WORKSTATION: 'WINDOWS_WORKSTATION',
     WIN_SERVER: 'WINDOWS_SERVER'
 }
+
+export const SORT_TYPE = {
+    SYSTEM_NAME: 'system_name',
+    HDD_CAPACITY: 'hdd_capacity'
+}
+
 export const DASH_CNTS = {
     COLUMNS: [
         { field: 'system_name', header: 'System name' },
@@ -29,10 +35,24 @@ export const DASH_CNTS = {
             value: DEVICE_TYPE.WIN_SERVER
         },
     ],
+    SORT_TYPES: [
+        {
+            label: 'HDD capacity',
+            value: SORT_TYPE.HDD_CAPACITY
+        },
+        {
+            label: 'System name',
+            value: SORT_TYPE.SYSTEM_NAME
+        }
+    ],
     FILTERS: {
         DEVICE: {
             PLH: 'Select a device type',
-            LBL: 'Device type'
+            LBL: 'Device type: '
+        },
+        SORT: {
+            PLH: 'Select a property',
+            LBL: 'Sort by: '
         }
     }
 }
