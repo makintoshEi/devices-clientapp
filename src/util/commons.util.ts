@@ -18,7 +18,7 @@ export const requestErrorHandler = (response: any) => {
 }
 
 /**
- * Sort by name given a property
+ * Sort by name(property) given a property
  * @param a 
  * @param b 
  * @returns 
@@ -32,7 +32,14 @@ export const sortByName = (a: any, b: any, property: string) => {
     if (nameA > nameB) {
         return 1
     }
-
-    // names must be equal
     return 0
 }
+
+/**
+ * Sort by number
+ * @param a 
+ * @param b 
+ * @param property 
+ * @returns 
+ */
+export const sortByNumber = (a: any, b: any, property: string) => +a[property] - +b[property]
