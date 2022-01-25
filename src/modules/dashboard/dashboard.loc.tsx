@@ -4,13 +4,15 @@ import { Dropdown } from 'primereact/dropdown'
 import { Column } from 'primereact/column'
 import { Button } from 'primereact/button'
 import { Dialog } from 'primereact/dialog'
-import { InputText } from 'primereact/inputtext';
-import { DASH_CNTS, DEVICE_TYPE } from './dashboard.constant'
+import { InputText } from 'primereact/inputtext'
+import { Toast } from 'primereact/toast'
+import { DASH_CNTS, DEVICE, DEVICE_TYPE } from './dashboard.constant'
 
 export interface DashboardProps {
     devices: any[]
     deviceType: string
     filterDevicesByType: any
+    onAddDevice: any
     onAcceptModal: any
     onShowModal: any
     showModal: boolean
@@ -24,16 +26,20 @@ export interface DashboardProps {
     systemName: string
     setSystemName: any
 
+    isCreateFlow: boolean
     isDisabled: boolean
+
+    toast: any
 }
 
 export const DashboardLoc = (props: DashboardProps) => {
 
     const {
         devices, deviceType, filterDevicesByType,
-        showModal, onAcceptModal, onShowModal, sortBy, sortDevices,
+        onAddDevice, onAcceptModal, onShowModal,
+        showModal, sortBy, sortDevices,
         deviceTypeForm, setDeviceTypeForm, hddCapacity, setHddCapacity,
-        systemName, setSystemName, isDisabled } = props
+        systemName, setSystemName, isCreateFlow, isDisabled, toast } = props
 
     const getColumns = DASH_CNTS.COLUMNS.map(column => {
         return <Column key={column.field} field={column.field} header={column.header} />
@@ -42,12 +48,16 @@ export const DashboardLoc = (props: DashboardProps) => {
     const footer = (
         <div>
             <Button className="p-button-text" label="No" icon="pi pi-times" onClick={onShowModal} />
-            <Button disabled={isDisabled} label="Save" icon="pi pi-check" onClick={onAcceptModal} />
+            <Button disabled={isDisabled}
+                label={isCreateFlow ? DASH_CNTS.BTN.SAVE : DASH_CNTS.BTN.UPDATE}
+                icon="pi pi-check"
+                onClick={onAcceptModal} />
         </div>
     );
 
     return (
         <>
+            <Toast ref={toast} position="top-right" />
             <div className='mb-3'>
                 <label className='mr-1' htmlFor="filterBy">{DASH_CNTS.FILTERS.DEVICE.LBL}</label>
                 <Dropdown name="filterBy" options={DASH_CNTS.DEVICE_TYPES}
@@ -63,7 +73,9 @@ export const DashboardLoc = (props: DashboardProps) => {
                     value={sortBy} />
             </div>
             <div>
-                <Button className="p-button-raised" id="add_device_btn" label={DASH_CNTS.BTN.ADD} onClick={onShowModal} />
+                <Button className="p-button-raised" id="add_device_btn"
+                    label={`${DASH_CNTS.BTN.ADD} ${DEVICE}`}
+                    onClick={onAddDevice} />
             </div>
             <DataTable value={devices}>
                 {getColumns}
@@ -71,7 +83,7 @@ export const DashboardLoc = (props: DashboardProps) => {
 
             <Dialog
                 footer={footer}
-                header="Add device"
+                header={isCreateFlow ? `${DASH_CNTS.BTN.ADD} ${DEVICE}` : `${DASH_CNTS.BTN.UPDATE} ${DEVICE}`}
                 onHide={onShowModal}
                 style={{ width: '50vw' }}
                 visible={showModal} >

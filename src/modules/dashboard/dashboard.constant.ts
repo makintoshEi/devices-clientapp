@@ -10,6 +10,8 @@ export const SORT_TYPE = {
     HDD_CAPACITY: 'hdd_capacity'
 }
 
+export const DEVICE = 'device'
+
 export const DASH_CNTS = {
     COLUMNS: [
         { field: 'system_name', header: 'System name' },
@@ -56,8 +58,11 @@ export const DASH_CNTS = {
         }
     },
     BTN: {
-        ADD: 'Add device',
-        UPDATE: 'Update device',
-        REMOVE: 'Remove device'
+
+        ADD: `Add`,
+        UPDATE: `Update`,
+        REMOVE: 'Remove',
+        SAVE: 'Save',
+
     }
 }

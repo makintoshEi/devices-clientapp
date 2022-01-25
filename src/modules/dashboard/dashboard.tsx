@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Device } from '../../models/device.model'
 import { DashboardLoc, DashboardProps } from './dashboard.loc'
-import { getDevices } from '../../api/devices.api'
+import { createDevice, getDevices } from '../../api/devices.api'
 import { requestErrorHandler } from '../../util/commons.util'
 import { DEVICE_TYPE, SORT_TYPE } from './dashboard.constant'
 import { sortByName, sortByNumber } from '../../util/commons.util'
@@ -18,7 +18,20 @@ export const Dashboard = () => {
     const [deviceTypeForm, setDeviceTypeForm] = useState('')
     const [systemName, setSystemName] = useState('')
     const [hddCapacity, setHddCapacity] = useState('')
+    const [isCreateFlow, setIsCreateFlow] = useState(true)
     const [isDisabled, setIsDisabled] = useState(true)
+
+    // toast
+    const toast = useRef<any>(null)
+
+    const showSuccess = () => {
+        toast.current.show({
+            severity: 'success',
+            summary: 'Success Message',
+            detail: 'Device saved !',
+            life: 3000
+        });
+    }
 
     useEffect(() => {
         requestDevices()
@@ -85,16 +98,52 @@ export const Dashboard = () => {
             devices.sort((a, b) => sortByName(a, b, property)))
     }
 
-    const onAcceptModal = () => {
+    /**
+     * On click add device button
+     */
+    const onAddDevice = () => {
+        setIsCreateFlow(true)
+        onShowModal()
+    }
 
+    /**
+     * On accept modal
+     */
+    const onAcceptModal = async () => {
+        try {
+            const device: Device = {
+                hdd_capacity: hddCapacity,
+                system_name: systemName,
+                type: deviceTypeForm
+            }
+            onShowModal()
+            if (isCreateFlow) {
+                const response = createDevice(device)
+                requestErrorHandler(response)
+                showSuccess()
+            }
+
+            await requestDevices()
+        } catch (err) {
+            console.error(err)
+        }
     }
 
     /**
      * Shows or hide modal
      */
     const onShowModal = () => {
-        console.log('showing modal')
         setShowModal(curVal => !curVal)
+        cleanForm()
+    }
+
+    /**
+     * Clean form values
+     */
+    const cleanForm = () => {
+        setSystemName("")
+        setDeviceTypeForm("")
+        setHddCapacity("")
     }
 
     const props: DashboardProps = {
@@ -102,6 +151,7 @@ export const Dashboard = () => {
         deviceType,
         filterDevicesByType,
         showModal,
+        onAddDevice,
         onAcceptModal,
         onShowModal,
         sortBy,
@@ -112,7 +162,9 @@ export const Dashboard = () => {
         setSystemName,
         hddCapacity,
         setHddCapacity,
-        isDisabled
+        isCreateFlow,
+        isDisabled,
+        toast,
     }
 
     return (
