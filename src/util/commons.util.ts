@@ -16,3 +16,30 @@ export const requestErrorHandler = (response: any) => {
         throw new Error(`${response.status}`)
     }
 }
+
+/**
+ * Sort by name(property) given a property
+ * @param a 
+ * @param b 
+ * @returns 
+ */
+export const sortByName = (a: any, b: any, property: string) => {
+    const nameA = a[property].toUpperCase()
+    var nameB = b[property].toUpperCase()
+    if (nameA < nameB) {
+        return -1
+    }
+    if (nameA > nameB) {
+        return 1
+    }
+    return 0
+}
+
+/**
+ * Sort by number
+ * @param a 
+ * @param b 
+ * @param property 
+ * @returns 
+ */
+export const sortByNumber = (a: any, b: any, property: string) => +a[property] - +b[property]
