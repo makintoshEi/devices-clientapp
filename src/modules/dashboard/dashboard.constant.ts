@@ -18,6 +18,10 @@ export const MSG = {
     UPDATED: 'Device updated !'
 }
 
+export const ALIGN = {
+    CENTER: 'center'
+}
+
 export const DASH_CNTS = {
     COLUMNS: [
         { field: 'system_name', header: 'System name' },

@@ -6,7 +6,8 @@ import { Button } from 'primereact/button'
 import { Dialog } from 'primereact/dialog'
 import { InputText } from 'primereact/inputtext'
 import { Toast } from 'primereact/toast'
-import { DASH_CNTS, DEVICE, DEVICE_TYPE } from './dashboard.constant'
+import { Device } from '../../models/device.model'
+import { ALIGN, DASH_CNTS, DEVICE, DEVICE_TYPE } from './dashboard.constant'
 
 export interface DashboardProps {
     devices: any[]
@@ -14,6 +15,8 @@ export interface DashboardProps {
     filterDevicesByType: any
     onAddDevice: any
     onAcceptModal: any
+    onDeleteDevice: any
+    onEditDevice: any
     onShowModal: any
     showModal: boolean
     sortBy: string
@@ -36,14 +39,23 @@ export const DashboardLoc = (props: DashboardProps) => {
 
     const {
         devices, deviceType, filterDevicesByType,
-        onAddDevice, onAcceptModal, onShowModal,
-        showModal, sortBy, sortDevices,
+        onAddDevice, onAcceptModal, onDeleteDevice, onEditDevice,
+        onShowModal, showModal, sortBy, sortDevices,
         deviceTypeForm, setDeviceTypeForm, hddCapacity, setHddCapacity,
         systemName, setSystemName, isCreateFlow, isDisabled, toast } = props
 
-    const getColumns = DASH_CNTS.COLUMNS.map(column => {
-        return <Column key={column.field} field={column.field} header={column.header} />
-    })
+    const hddCapacityTemplate = (device: Device) => {
+        return `${device.hdd_capacity} GB`
+    }
+
+    const actionsTemplate = (device: Device) => {
+        return (
+            <>
+                <Button icon="pi pi-pencil" className="p-button-rounded p-button-outlined mr-2" onClick={() => onEditDevice(device)} />
+                <Button icon="pi pi-trash" className="p-button-rounded p-button-danger p-button-outlined" onClick={() => onDeleteDevice(device)} />
+            </>
+        )
+    }
 
     const footer = (
         <div>
@@ -81,8 +93,13 @@ export const DashboardLoc = (props: DashboardProps) => {
                     </div>
                 </div>
             </div>
-            <DataTable value={devices}>
-                {getColumns}
+            <DataTable value={devices} scrollable scrollHeight="500px">
+                <Column field={DASH_CNTS.COLUMNS[0].field} header={DASH_CNTS.COLUMNS[0].header}></Column>
+                <Column field={DASH_CNTS.COLUMNS[1].field} header={DASH_CNTS.COLUMNS[1].header}></Column>
+                <Column field={DASH_CNTS.COLUMNS[2].field} header={DASH_CNTS.COLUMNS[2].header}
+                    body={hddCapacityTemplate}></Column>
+                <Column header={DASH_CNTS.COLUMNS[3].header}
+                    body={actionsTemplate}></Column>
             </DataTable>
 
             <Dialog

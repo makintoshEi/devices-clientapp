@@ -81,7 +81,7 @@ async function put(url: string, data: any) {
     try {
         return await fetch(url, {
             method: LOCAL.VERB.PUT,
-            body: data,
+            body: JSON.stringify(data),
             headers: {
                 [LOCAL.HEADER.CONTENT_TYPE]: LOCAL.CONTENT_TYPE.JSON,
                 [LOCAL.HEADER.ACCEPT]: LOCAL.CONTENT_TYPE.JSON

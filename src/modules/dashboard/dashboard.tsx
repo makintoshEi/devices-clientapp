@@ -1,13 +1,15 @@
 import { useEffect, useRef, useState } from 'react'
 import { Device } from '../../models/device.model'
 import { DashboardLoc, DashboardProps } from './dashboard.loc'
-import { createDevice, getDevices } from '../../api/devices.api'
+import { createDevice, getDevices, updateDevice } from '../../api/devices.api'
 import { requestErrorHandler } from '../../util/commons.util'
 import { DEVICE_TYPE, SORT_TYPE, MSG } from './dashboard.constant'
 import { sortByName, sortByNumber } from '../../util/commons.util'
 
 export const Dashboard = () => {
     const newDevices: Device[] = []
+    const deviceIdType: any = ''
+    // dashboard
     const [devices, setDevices] = useState(newDevices)
     const [deviceType, setDeviceType] = useState('')
     const [isFilteredByDevice, setIsFilteredByDevice] = useState(false)
@@ -15,6 +17,7 @@ export const Dashboard = () => {
     const [showModal, setShowModal] = useState(false)
 
     // form
+    const [deviceId, setDeviceId] = useState(deviceIdType)
     const [deviceTypeForm, setDeviceTypeForm] = useState('')
     const [systemName, setSystemName] = useState('')
     const [hddCapacity, setHddCapacity] = useState('')
@@ -98,22 +101,45 @@ export const Dashboard = () => {
     }
 
     /**
+     * On click edit device
+     */
+    const onEditDevice = (device: Device) => {
+        setIsCreateFlow(false)
+        onShowModal()
+        setDeviceId(device.id)
+        setSystemName(device.system_name)
+        setDeviceTypeForm(device.type)
+        setHddCapacity(device.hdd_capacity)
+    }
+
+    /**
+     * On click delete device
+     */
+    const onDeleteDevice = () => {
+        console.log('deleting device')
+    }
+
+    /**
      * On accept modal
      */
     const onAcceptModal = async () => {
         try {
             const device: Device = {
+                id: deviceId,
                 hdd_capacity: hddCapacity,
                 system_name: systemName,
                 type: deviceTypeForm
             }
             onShowModal()
             if (isCreateFlow) {
-                const response = createDevice(device)
+                const response = await createDevice(device)
                 requestErrorHandler(response)
                 showSuccess(MSG.SAVED)
+            } else {
+                const response = await updateDevice(device)
+                requestErrorHandler(response)
+                showSuccess(MSG.UPDATED)
             }
-
             await requestDevices()
         } catch (err) {
             console.error(err)
@@ -157,6 +183,8 @@ export const Dashboard = () => {
         showModal,
         onAddDevice,
         onAcceptModal,
+        onDeleteDevice,
+        onEditDevice,
         onShowModal,
         sortBy,
         sortDevices,

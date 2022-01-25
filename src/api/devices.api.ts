@@ -20,7 +20,7 @@ const getDevice = async (deviceId: string) => {
 
 
 const updateDevice = async (device: Device) => {
-    return await put(ENDPOINT.DEVICE, device)
+    return await put(`${ENDPOINT.DEVICE}/${device.id}`, device)
 }
 
 export { createDevice, deleteDevice, getDevices, getDevice, updateDevice }
