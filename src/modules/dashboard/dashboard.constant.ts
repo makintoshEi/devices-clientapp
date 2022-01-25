@@ -1,3 +1,6 @@
+
+
+export const DEVICE = 'device'
 export const DEVICE_TYPE = {
     ALL: 'all',
     MAC: 'MAC',
@@ -10,7 +13,10 @@ export const SORT_TYPE = {
     HDD_CAPACITY: 'hdd_capacity'
 }
 
-export const DEVICE = 'device'
+export const MSG = {
+    SAVED: 'Device saved !',
+    UPDATED: 'Device updated !'
+}
 
 export const DASH_CNTS = {
     COLUMNS: [
@@ -58,11 +64,9 @@ export const DASH_CNTS = {
         }
     },
     BTN: {
-
         ADD: `Add`,
         UPDATE: `Update`,
         REMOVE: 'Remove',
         SAVE: 'Save',
-
     }
 }

@@ -3,7 +3,7 @@ import { Device } from '../../models/device.model'
 import { DashboardLoc, DashboardProps } from './dashboard.loc'
 import { createDevice, getDevices } from '../../api/devices.api'
 import { requestErrorHandler } from '../../util/commons.util'
-import { DEVICE_TYPE, SORT_TYPE } from './dashboard.constant'
+import { DEVICE_TYPE, SORT_TYPE, MSG } from './dashboard.constant'
 import { sortByName, sortByNumber } from '../../util/commons.util'
 
 export const Dashboard = () => {
@@ -23,15 +23,6 @@ export const Dashboard = () => {
 
     // toast
     const toast = useRef<any>(null)
-
-    const showSuccess = () => {
-        toast.current.show({
-            severity: 'success',
-            summary: 'Success Message',
-            detail: 'Device saved !',
-            life: 3000
-        });
-    }
 
     useEffect(() => {
         requestDevices()
@@ -120,13 +111,26 @@ export const Dashboard = () => {
             if (isCreateFlow) {
                 const response = createDevice(device)
                 requestErrorHandler(response)
-                showSuccess()
+                showSuccess(MSG.SAVED)
             }
 
             await requestDevices()
         } catch (err) {
             console.error(err)
         }
+    }
+
+    /**
+     * Success message
+     * @param msg
+     */
+    const showSuccess = (msg: string) => {
+        toast.current.show({
+            severity: 'success',
+            summary: 'Success',
+            detail: msg,
+            life: 4000
+        });
     }
 
     /**
