@@ -80,6 +80,7 @@ export const Dashboard = () => {
     const filterDevicesByType = async (type: string) => {
         setDeviceType(type)
         setIsFilteredByDevice(true)
+        setSortBy('')
         await requestDevices()
     }
 
@@ -118,9 +119,8 @@ export const Dashboard = () => {
      * On click delete device
      */
     const onDeleteDevice = (device: Device) => {
-        console.log('deleting device')
         confirmDialog({
-            message: `${DIALOG.MSG} ${device.system_name}`,
+            message: `${DIALOG.MSG} ${device.system_name} ?`,
             header: DIALOG.HDR,
             icon: DIALOG.ICN,
             accept: () => requestDeleteDevice(device.id),
