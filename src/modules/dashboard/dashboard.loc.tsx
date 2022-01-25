@@ -56,26 +56,30 @@ export const DashboardLoc = (props: DashboardProps) => {
     );
 
     return (
-        <>
+        <div className="m-6">
             <Toast ref={toast} position="top-right" />
-            <div className='mb-3'>
-                <label className='mr-1' htmlFor="filterBy">{DASH_CNTS.FILTERS.DEVICE.LBL}</label>
-                <Dropdown name="filterBy" options={DASH_CNTS.DEVICE_TYPES}
-                    onChange={(e) => filterDevicesByType(e.value)}
-                    placeholder={DASH_CNTS.FILTERS.DEVICE.PLH}
-                    value={deviceType} />
-            </div>
-            <div className='ml-3 mb-3'>
-                <label className='mr-1' htmlFor="sortBy">{DASH_CNTS.FILTERS.SORT.LBL}</label>
-                <Dropdown name="sortBy" options={DASH_CNTS.SORT_TYPES}
-                    onChange={(e) => sortDevices(e.value)}
-                    placeholder={DASH_CNTS.FILTERS.SORT.PLH}
-                    value={sortBy} />
-            </div>
-            <div>
-                <Button className="p-button-raised" id="add_device_btn"
-                    label={`${DASH_CNTS.BTN.ADD} ${DEVICE}`}
-                    onClick={onAddDevice} />
+            <div className="card">
+                <div className="p-fluid formgrid grid">
+                    <div className='field col-12 md:col-4'>
+                        <label className='mr-1' htmlFor="filterBy">{DASH_CNTS.FILTERS.DEVICE.LBL}</label>
+                        <Dropdown name="filterBy" options={DASH_CNTS.DEVICE_TYPES}
+                            onChange={(e) => filterDevicesByType(e.value)}
+                            placeholder={DASH_CNTS.FILTERS.DEVICE.PLH}
+                            value={deviceType} />
+                    </div>
+                    <div className="field col-12 md:col-4">
+                        <label className='mr-1' htmlFor="sortBy">{DASH_CNTS.FILTERS.SORT.LBL}</label>
+                        <Dropdown name="sortBy" options={DASH_CNTS.SORT_TYPES}
+                            onChange={(e) => sortDevices(e.value)}
+                            placeholder={DASH_CNTS.FILTERS.SORT.PLH}
+                            value={sortBy} />
+                    </div>
+                    <div className="field col-1 md:col-3 mt-4">
+                        <Button className="p-button-raised" id="add_device_btn"
+                            label={`${DASH_CNTS.BTN.ADD} ${DEVICE}`}
+                            onClick={onAddDevice} />
+                    </div>
+                </div>
             </div>
             <DataTable value={devices}>
                 {getColumns}
@@ -101,11 +105,13 @@ export const DashboardLoc = (props: DashboardProps) => {
                     </div>
                     <div className="field col-12 md:col-4">
                         <label htmlFor={DASH_CNTS.COLUMNS[2].field}>{DASH_CNTS.COLUMNS[2].header}</label>
-                        <InputText id="" value={hddCapacity} onChange={(e) => setHddCapacity(e.target.value)} />
+                        <InputText id="" value={hddCapacity} onChange={(e) => {
+                            (DASH_CNTS.ONLY_NUMBERS.test(e.target.value) || e.target.value.length === 0) && setHddCapacity(e.target.value)
+                        }} />
                     </div>
                 </div>
             </Dialog>
-        </>
+        </div>
 
     )
 }

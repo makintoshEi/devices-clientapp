@@ -68,5 +68,6 @@ export const DASH_CNTS = {
         UPDATE: `Update`,
         REMOVE: 'Remove',
         SAVE: 'Save',
-    }
+    },
+    ONLY_NUMBERS: /^\d+$/,
 }
