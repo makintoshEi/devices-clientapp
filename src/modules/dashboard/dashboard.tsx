@@ -12,6 +12,13 @@ export const Dashboard = () => {
     const [deviceType, setDeviceType] = useState('')
     const [isFilteredByDevice, setIsFilteredByDevice] = useState(false)
     const [sortBy, setSortBy] = useState('')
+    const [showModal, setShowModal] = useState(false)
+
+    // form
+    const [deviceTypeForm, setDeviceTypeForm] = useState('')
+    const [systemName, setSystemName] = useState('')
+    const [hddCapacity, setHddCapacity] = useState('')
+    const [isDisabled, setIsDisabled] = useState(true)
 
     useEffect(() => {
         requestDevices()
@@ -29,6 +36,13 @@ export const Dashboard = () => {
             setIsFilteredByDevice(false)
         }
     }, [devices])
+
+    /**
+     * Enables or disables action on modal
+     */
+    useEffect(() => {
+        (deviceTypeForm && systemName && hddCapacity) ? setIsDisabled(false) : setIsDisabled(true)
+    }, [deviceTypeForm, systemName, hddCapacity])
 
     /**
      * Fetch devices from endpoint
@@ -61,7 +75,7 @@ export const Dashboard = () => {
     }
 
     /**
-     * 
+     * Sort devices
      * @param property 
      */
     const sortDevices = (property: string) => {
@@ -71,12 +85,34 @@ export const Dashboard = () => {
             devices.sort((a, b) => sortByName(a, b, property)))
     }
 
+    const onAcceptModal = () => {
+
+    }
+
+    /**
+     * Shows or hide modal
+     */
+    const onShowModal = () => {
+        console.log('showing modal')
+        setShowModal(curVal => !curVal)
+    }
+
     const props: DashboardProps = {
         devices,
         deviceType,
         filterDevicesByType,
+        showModal,
+        onAcceptModal,
+        onShowModal,
         sortBy,
-        sortDevices
+        sortDevices,
+        deviceTypeForm,
+        setDeviceTypeForm,
+        systemName,
+        setSystemName,
+        hddCapacity,
+        setHddCapacity,
+        isDisabled
     }
 
     return (

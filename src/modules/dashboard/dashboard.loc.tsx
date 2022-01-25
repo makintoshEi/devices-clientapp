@@ -1,23 +1,50 @@
+import './dashboard.css'
 import { DataTable } from 'primereact/datatable'
 import { Dropdown } from 'primereact/dropdown'
 import { Column } from 'primereact/column'
-import { DASH_CNTS } from './dashboard.constant'
+import { Button } from 'primereact/button'
+import { Dialog } from 'primereact/dialog'
+import { InputText } from 'primereact/inputtext';
+import { DASH_CNTS, DEVICE_TYPE } from './dashboard.constant'
 
 export interface DashboardProps {
     devices: any[]
     deviceType: string
     filterDevicesByType: any
+    onAcceptModal: any
+    onShowModal: any
+    showModal: boolean
     sortBy: string
     sortDevices: any
+
+    deviceTypeForm: string
+    setDeviceTypeForm: any
+    hddCapacity: string
+    setHddCapacity: any
+    systemName: string
+    setSystemName: any
+
+    isDisabled: boolean
 }
 
 export const DashboardLoc = (props: DashboardProps) => {
 
-    const { devices, deviceType, filterDevicesByType, sortBy, sortDevices } = props
+    const {
+        devices, deviceType, filterDevicesByType,
+        showModal, onAcceptModal, onShowModal, sortBy, sortDevices,
+        deviceTypeForm, setDeviceTypeForm, hddCapacity, setHddCapacity,
+        systemName, setSystemName, isDisabled } = props
 
     const getColumns = DASH_CNTS.COLUMNS.map(column => {
         return <Column key={column.field} field={column.field} header={column.header} />
     })
+
+    const footer = (
+        <div>
+            <Button className="p-button-text" label="No" icon="pi pi-times" onClick={onShowModal} />
+            <Button disabled={isDisabled} label="Save" icon="pi pi-check" onClick={onAcceptModal} />
+        </div>
+    );
 
     return (
         <>
@@ -35,9 +62,37 @@ export const DashboardLoc = (props: DashboardProps) => {
                     placeholder={DASH_CNTS.FILTERS.SORT.PLH}
                     value={sortBy} />
             </div>
+            <div>
+                <Button className="p-button-raised" id="add_device_btn" label={DASH_CNTS.BTN.ADD} onClick={onShowModal} />
+            </div>
             <DataTable value={devices}>
                 {getColumns}
             </DataTable>
+
+            <Dialog
+                footer={footer}
+                header="Add device"
+                onHide={onShowModal}
+                style={{ width: '50vw' }}
+                visible={showModal} >
+                <div className="p-fluid formgrid grid">
+                    <div className="field col-12 md:col-4">
+                        <label htmlFor={DASH_CNTS.COLUMNS[0].field}>{DASH_CNTS.COLUMNS[0].header}</label>
+                        <InputText id="" value={systemName} onChange={(e) => setSystemName(e.target.value)} />
+                    </div>
+                    <div className="field col-12 md:col-4">
+                        <label htmlFor={DASH_CNTS.COLUMNS[1].field}>{DASH_CNTS.COLUMNS[1].header}</label>
+                        <Dropdown id={DASH_CNTS.COLUMNS[1].field} options={DASH_CNTS.DEVICE_TYPES.filter(devTyp => devTyp.value !== DEVICE_TYPE.ALL)}
+                            onChange={(e) => setDeviceTypeForm(e.value)}
+                            placeholder={DASH_CNTS.FILTERS.DEVICE.PLH}
+                            value={deviceTypeForm} />
+                    </div>
+                    <div className="field col-12 md:col-4">
+                        <label htmlFor={DASH_CNTS.COLUMNS[2].field}>{DASH_CNTS.COLUMNS[2].header}</label>
+                        <InputText id="" value={hddCapacity} onChange={(e) => setHddCapacity(e.target.value)} />
+                    </div>
+                </div>
+            </Dialog>
         </>
 
     )

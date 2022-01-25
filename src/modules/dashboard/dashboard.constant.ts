@@ -54,5 +54,10 @@ export const DASH_CNTS = {
             PLH: 'Select a property',
             LBL: 'Sort by: '
         }
+    },
+    BTN: {
+        ADD: 'Add device',
+        UPDATE: 'Update device',
+        REMOVE: 'Remove device'
     }
 }
