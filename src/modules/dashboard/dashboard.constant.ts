@@ -18,8 +18,11 @@ export const MSG = {
     UPDATED: 'Device updated !'
 }
 
-export const ALIGN = {
-    CENTER: 'center'
+export const DIALOG = {
+    MSG: 'Do you want to delete this device:',
+    HDR: 'Delete confirmation',
+    ICN: 'pi pi-info-circle',
+
 }
 
 export const DASH_CNTS = {

@@ -1,14 +1,16 @@
 import { useEffect, useRef, useState } from 'react'
 import { Device } from '../../models/device.model'
 import { DashboardLoc, DashboardProps } from './dashboard.loc'
-import { createDevice, getDevices, updateDevice } from '../../api/devices.api'
+import { confirmDialog } from 'primereact/confirmdialog'
+import { createDevice, deleteDevice, getDevices, updateDevice } from '../../api/devices.api'
 import { requestErrorHandler } from '../../util/commons.util'
-import { DEVICE_TYPE, SORT_TYPE, MSG } from './dashboard.constant'
+import { DEVICE_TYPE, DIALOG, MSG, SORT_TYPE } from './dashboard.constant'
 import { sortByName, sortByNumber } from '../../util/commons.util'
 
 export const Dashboard = () => {
     const newDevices: Device[] = []
     const deviceIdType: any = ''
+
     // dashboard
     const [devices, setDevices] = useState(newDevices)
     const [deviceType, setDeviceType] = useState('')
@@ -115,8 +117,25 @@ export const Dashboard = () => {
     /**
      * On click delete device
      */
-    const onDeleteDevice = () => {
+    const onDeleteDevice = (device: Device) => {
         console.log('deleting device')
+        confirmDialog({
+            message: `${DIALOG.MSG} ${device.system_name}`,
+            header: DIALOG.HDR,
+            icon: DIALOG.ICN,
+            accept: () => requestDeleteDevice(device.id),
+            reject: () => { }
+        });
+    }
+
+    const requestDeleteDevice = async (id: any) => {
+        try {
+            const response = await deleteDevice(id)
+            requestErrorHandler(response)
+            requestDevices()
+        } catch (err) {
+            console.log(err)
+        }
     }
 
     /**

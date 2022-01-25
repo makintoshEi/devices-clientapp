@@ -7,7 +7,7 @@ import { Dialog } from 'primereact/dialog'
 import { InputText } from 'primereact/inputtext'
 import { Toast } from 'primereact/toast'
 import { Device } from '../../models/device.model'
-import { ALIGN, DASH_CNTS, DEVICE, DEVICE_TYPE } from './dashboard.constant'
+import { DASH_CNTS, DEVICE, DEVICE_TYPE } from './dashboard.constant'
 
 export interface DashboardProps {
     devices: any[]
@@ -51,8 +51,12 @@ export const DashboardLoc = (props: DashboardProps) => {
     const actionsTemplate = (device: Device) => {
         return (
             <>
-                <Button icon="pi pi-pencil" className="p-button-rounded p-button-outlined mr-2" onClick={() => onEditDevice(device)} />
-                <Button icon="pi pi-trash" className="p-button-rounded p-button-danger p-button-outlined" onClick={() => onDeleteDevice(device)} />
+                <Button icon="pi pi-pencil"
+                    className="p-button-rounded p-button-outlined mr-2"
+                    onClick={() => onEditDevice(device)} />
+                <Button icon="pi pi-trash"
+                    className="p-button-rounded p-button-danger p-button-outlined"
+                    onClick={() => onDeleteDevice(device)} />
             </>
         )
     }
