@@ -1,3 +1,6 @@
+
+
+export const DEVICE = 'device'
 export const DEVICE_TYPE = {
     ALL: 'all',
     MAC: 'MAC',
@@ -8,6 +11,18 @@ export const DEVICE_TYPE = {
 export const SORT_TYPE = {
     SYSTEM_NAME: 'system_name',
     HDD_CAPACITY: 'hdd_capacity'
+}
+
+export const MSG = {
+    SAVED: 'Device saved !',
+    UPDATED: 'Device updated !'
+}
+
+export const DIALOG = {
+    MSG: 'Do you want to delete this device:',
+    HDR: 'Delete confirmation',
+    ICN: 'pi pi-info-circle',
+
 }
 
 export const DASH_CNTS = {
@@ -54,5 +69,12 @@ export const DASH_CNTS = {
             PLH: 'Select a property',
             LBL: 'Sort by: '
         }
-    }
+    },
+    BTN: {
+        ADD: `Add`,
+        UPDATE: `Update`,
+        REMOVE: 'Remove',
+        SAVE: 'Save',
+    },
+    ONLY_NUMBERS: /^\d+$/,
 }
