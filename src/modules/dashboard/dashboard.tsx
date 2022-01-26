@@ -68,8 +68,9 @@ export const Dashboard = () => {
             const response = await getDevices()
             requestErrorHandler(response)
             return await response.json()
-        } catch (err: any) {
-            throw new Error(err)
+        } catch (err) {
+            showError()
+            console.error(err)
         }
     }
 
@@ -135,6 +136,7 @@ export const Dashboard = () => {
             requestDevices()
             showInfo(MSG.DELETED)
         } catch (err) {
+            showError()
             console.log(err)
         }
     }
@@ -162,6 +164,7 @@ export const Dashboard = () => {
             }
             await requestDevices()
         } catch (err) {
+            showError()
             console.error(err)
         }
     }
@@ -188,6 +191,18 @@ export const Dashboard = () => {
             severity: 'info',
             summary: 'Info',
             detail: msg
+        });
+    }
+
+    /**
+     * Error message
+     * @param msg 
+     */
+    const showError = () => {
+        toast.current.show({
+            severity: MSG.ERROR.SEV,
+            summary: MSG.ERROR.TTL,
+            detail: MSG.ERROR.DES
         });
     }
 

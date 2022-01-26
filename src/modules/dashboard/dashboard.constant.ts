@@ -16,7 +16,12 @@ export const SORT_TYPE = {
 export const MSG = {
     SAVED: 'Device saved !',
     UPDATED: 'Device updated !',
-    DELETED: 'Device deleted!'
+    DELETED: 'Device deleted!',
+    ERROR: {
+        SEV: 'error',
+        TTL: 'A server error ocurred',
+        DES: 'Please contact the administrator'
+    }
 }
 
 export const DIALOG = {
