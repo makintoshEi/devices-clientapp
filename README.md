@@ -6,6 +6,7 @@
 
 - Clone this Repository
 - cd devices-clientapp/
+- Please make sure you are on master branch
 - In a terminal run: npm install
 - After the installation is completed, please run: npm start
 
