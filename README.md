@@ -1,17 +1,12 @@
-# Getting Started with Create React App
+## This is my solution to Front End Technical assigment for NinjaOne LLC
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-This project is running with node v17.4.0
+- node v17.4.0
+- npm v8.3.1
+### Instructions
 
-## Available Scripts
+- Clone this Repository
+- cd devices-clientapp/
+- In a terminal run: npm install
+- After the installation is completed, please run: npm start
 
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3001](http://localhost:3001) to view it in the browser.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
+The local server will serve the app at http://localhost:3001, please make sure to run the backend server first.
