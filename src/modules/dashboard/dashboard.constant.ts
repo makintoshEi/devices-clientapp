@@ -21,7 +21,8 @@ export const MSG = {
         SEV: 'error',
         TTL: 'A server error ocurred',
         DES: 'Please contact the administrator'
-    }
+    },
+    NO_DATA: `No data available on dashboard`
 }
 
 export const DIALOG = {

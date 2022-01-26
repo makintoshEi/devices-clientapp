@@ -90,6 +90,10 @@ export const Dashboard = () => {
      * @param property 
      */
     const sortDevices = (property: string) => {
+        if (!devices) {
+            showInfo(MSG.NO_DATA)
+            return
+        }
         setSortBy(property)
         setDevices(property === SORT_TYPE.HDD_CAPACITY ?
             devices.sort((a, b) => sortByNumber(a, b, property)) :
