@@ -37,7 +37,7 @@ export const Dashboard = () => {
      * When is filtered by device
      */
     useEffect(() => {
-        if (isFilteredByDevice && devices.length > 0) {
+        if (isFilteredByDevice && devices?.length > 0) {
             if (deviceType === DEVICE_TYPE.ALL) {
                 return
             }
