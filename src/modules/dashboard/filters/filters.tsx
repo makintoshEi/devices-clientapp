@@ -31,7 +31,7 @@ export const Filters = (props: FiltersProps) => {
                         placeholder={DASH_CNTS.FILTERS.SORT.PLH}
                         value={sortBy} />
                 </div>
-                <div className="field col-1 md:col-3 mt-4">
+                <div className="field col-12 md:col-4 mt-4">
                     <Button className="p-button-raised" id="add_device_btn"
                         label={`${DASH_CNTS.BTN.ADD} ${DEVICE}`}
                         onClick={onAddDevice} />
