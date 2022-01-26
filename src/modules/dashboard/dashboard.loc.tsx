@@ -4,7 +4,7 @@ import { Column } from 'primereact/column'
 import { Button } from 'primereact/button'
 import { Toast } from 'primereact/toast'
 import { Filters, FiltersProps } from './filters/filters'
-import { DeviceModal, DeviceModalProps } from './device-modal'
+import { DeviceModal, DeviceModalProps } from './device-modal/device-modal'
 import { Device } from '../../models/device.model'
 import { DASH_CNTS } from './dashboard.constant'
 

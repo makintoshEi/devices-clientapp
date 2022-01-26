@@ -2,7 +2,7 @@ import { Button } from 'primereact/button'
 import { Dialog } from 'primereact/dialog'
 import { Dropdown } from 'primereact/dropdown'
 import { InputText } from 'primereact/inputtext'
-import { DASH_CNTS, DEVICE, DEVICE_TYPE } from './dashboard.constant'
+import { DASH_CNTS, DEVICE, DEVICE_TYPE } from '../dashboard.constant'
 
 export interface DeviceModalProps {
     isCreateFlow: boolean
