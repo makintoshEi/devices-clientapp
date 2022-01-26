@@ -15,7 +15,8 @@ export const SORT_TYPE = {
 
 export const MSG = {
     SAVED: 'Device saved !',
-    UPDATED: 'Device updated !'
+    UPDATED: 'Device updated !',
+    DELETED: 'Device deleted!'
 }
 
 export const DIALOG = {

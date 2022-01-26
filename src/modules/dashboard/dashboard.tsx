@@ -133,6 +133,7 @@ export const Dashboard = () => {
             const response = await deleteDevice(id)
             requestErrorHandler(response)
             requestDevices()
+            showInfo(MSG.DELETED)
         } catch (err) {
             console.log(err)
         }
@@ -175,6 +176,18 @@ export const Dashboard = () => {
             summary: 'Success',
             detail: msg,
             life: 4000
+        });
+    }
+
+    /**
+     * Info message
+     * @param msg 
+     */
+    const showInfo = (msg: string) => {
+        toast.current.show({
+            severity: 'info',
+            summary: 'Info',
+            detail: msg
         });
     }
 
