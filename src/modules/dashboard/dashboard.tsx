@@ -117,7 +117,7 @@ export const Dashboard = () => {
         setDeviceId(device.id)
         setSystemName(device.system_name)
         setDeviceTypeForm(device.type)
-        setHddCapacity(device.hdd_capacity)
+        // setHddCapacity(device.hdd_capacity)
     }
 
     /**
@@ -152,7 +152,7 @@ export const Dashboard = () => {
         try {
             const device: Device = {
                 id: deviceId,
-                hdd_capacity: hddCapacity,
+                // hdd_capacity: hddCapacity,
                 system_name: systemName,
                 type: deviceTypeForm
             }
