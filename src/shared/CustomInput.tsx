@@ -1,13 +1,14 @@
+import { ChangeEventHandler } from "react"
 
-import { useState } from "react";
+type CustomInputType = {
+    placeholder?: string
+    type?: string
+    value: any
+    handleChange: ChangeEventHandler
+}
 
-export function CustomInput({ placeholder = "", type = "text" }) {
-    const [value, setValue] = useState("");
-
-    const handleChange = (evt: any) => {
-        setValue(evt.target.value)
-    }
-
+export function CustomInput(props: CustomInputType) {
+    const { handleChange, placeholder, type, value } = props
     return (<input placeholder={placeholder}
         type={type}
         style={{ borderRadius: 4, padding: 16 }}

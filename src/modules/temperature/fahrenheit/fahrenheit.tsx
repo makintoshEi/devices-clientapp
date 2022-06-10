@@ -1,5 +1,5 @@
 import './fahrenheit.css'
 
-export const Farenheit = ({ customValue = 0 }) => {
-    return <div className="fh-temperature-container">{customValue}</div>
+export const Farenheit = ({ currentTemperature = 0 }) => {
+    return <div className="fh-temperature-container">{(currentTemperature * 9) / 5 + 32}F</div>
 }
