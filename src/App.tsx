@@ -6,7 +6,7 @@ import { Farenheit, Kelvin } from './modules/temperature'
 
 function App() {
 
-  const [value, setValue] = useState();
+  const [value, setValue] = useState<number | string>("");
 
   const handleChange = (evt: any) => {
     setValue(evt.target.value)
@@ -14,8 +14,8 @@ function App() {
   return (
     <div className="App">
       <CustomInput placeholder='Temp in °C' handleChange={handleChange} value={value} />
-      <Kelvin currentTemperature={value} />
-      <Farenheit currentTemperature={value} />
+      <Kelvin currentTemperature={+value} />
+      <Farenheit currentTemperature={+value} />
     </div>
   );
 }

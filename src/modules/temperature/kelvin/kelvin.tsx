@@ -1,7 +1,11 @@
 import "./kelvin.css";
 
-export const Kelvin = ({ currentTemperature = 0 }) => {
+type KelvinType = {
+    currentTemperature: number
+}
+
+export const Kelvin = (props: KelvinType) => {
     return (
-        <div className="temperature-container">{(currentTemperature + 273.15)}K</div>
+        <div className="temperature-container">{(props.currentTemperature + 273.15)}K</div>
     );
 };
