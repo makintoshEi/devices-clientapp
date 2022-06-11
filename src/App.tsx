@@ -8,13 +8,14 @@ function App() {
 
   return (
     <div className="App">
-      <CustomInput placeholder='Temp in °C'
-        renderProp={(value: string) => (
+      <CustomInput placeholder='Temp in °C'>
+        {(value: string) => (
           <>
             <Kelvin currentTemperature={value} />
             <Farenheit currentTemperature={value} />
           </>
-        )} />
+        )}
+      </CustomInput>
     </div>
   );
 }
